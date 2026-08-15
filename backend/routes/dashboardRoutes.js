@@ -1,14 +1,17 @@
 const express = require('express');
 const router = express.Router();
-const Customer = require('../models/Customer');
-const Transaction = require('../models/Transaction');
+const supabase = require('../config/supabase');
 const auth = require('../middleware/authMiddleware');
 
 router.get('/stats', auth, async (req, res) => {
   try {
-    const customers = await Customer.find();
-    
-    const totalCustomers = customers.length;
+    const { data: customers, error: custErr } = await supabase
+      .from('customers')
+      .select('*');
+
+    if (custErr) throw custErr;
+
+    const totalCustomers = (customers || []).length;
     let totalMoneyGiven = 0;
     let totalMoneyToCollect = 0;
     let totalCollectedAmount = 0;
@@ -16,10 +19,10 @@ router.get('/stats', auth, async (req, res) => {
     let activeCustomers = 0;
     let completedCustomers = 0;
 
-    customers.forEach(c => {
-      totalMoneyGiven += c.amountGiven;
-      totalMoneyToCollect += c.totalAmountToReceive;
-      totalCollectedAmount += c.amountPaidTillNow;
+    (customers || []).forEach(c => {
+      totalMoneyGiven += Number(c.amount_given || 0);
+      totalMoneyToCollect += Number(c.total_amount_to_receive || 0);
+      totalCollectedAmount += Number(c.amount_paid_till_now || 0);
       
       if (c.status === 'active') activeCustomers++;
       if (c.status === 'completed') completedCustomers++;
@@ -27,7 +30,7 @@ router.get('/stats', auth, async (req, res) => {
 
     const pendingAmount = totalMoneyToCollect - totalCollectedAmount;
     const totalExpectedProfit = totalMoneyToCollect - totalMoneyGiven;
-    const currentProfit = totalCollectedAmount - totalMoneyGiven; // Realized profit
+    const currentProfit = totalCollectedAmount - totalMoneyGiven;
 
     // Get today's collections
     const startOfDay = new Date();
@@ -35,13 +38,15 @@ router.get('/stats', auth, async (req, res) => {
     const endOfDay = new Date();
     endOfDay.setHours(23, 59, 59, 999);
 
-    const todayTransactions = await Transaction.find({
-      createdAt: { $gte: startOfDay, $lte: endOfDay }
-    });
+    const { data: todayTransactions } = await supabase
+      .from('transactions')
+      .select('amount')
+      .gte('created_at', startOfDay.toISOString())
+      .lte('created_at', endOfDay.toISOString());
 
-    const todayCollection = todayTransactions.reduce((acc, t) => acc + t.amount, 0);
+    const todayCollection = (todayTransactions || []).reduce((acc, t) => acc + Number(t.amount || 0), 0);
 
-    // Get last 7 days of collections for the chart
+    // Get last 7 days of collections for chart
     const last7Days = [];
     for (let i = 6; i >= 0; i--) {
       const d = new Date();
@@ -51,10 +56,13 @@ router.get('/stats', auth, async (req, res) => {
       const end = new Date(d);
       end.setHours(23, 59, 59, 999);
 
-      const dayTransactions = await Transaction.find({
-        createdAt: { $gte: start, $lte: end }
-      });
-      const amount = dayTransactions.reduce((acc, t) => acc + t.amount, 0);
+      const { data: dayTx } = await supabase
+        .from('transactions')
+        .select('amount')
+        .gte('created_at', start.toISOString())
+        .lte('created_at', end.toISOString());
+
+      const amount = (dayTx || []).reduce((acc, t) => acc + Number(t.amount || 0), 0);
       last7Days.push({
         name: d.toLocaleDateString('en-US', { weekday: 'short' }),
         value: amount,

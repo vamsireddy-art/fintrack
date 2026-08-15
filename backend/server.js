@@ -1,8 +1,8 @@
 const path = require('path');
 require('dotenv').config({ path: path.join(__dirname, '.env') });
 const express = require('express');
-const mongoose = require('mongoose');
 const cors = require('cors');
+const supabase = require('./config/supabase');
 
 const authRoutes = require('./routes/authRoutes');
 const customerRoutes = require('./routes/customerRoutes');
@@ -26,7 +26,7 @@ app.use('/api/dashboard', dashboardRoutes);
 
 // API Health Check
 app.get('/api/health', (req, res) => {
-  res.json({ status: 'ok', message: 'FinTrack 3D Combined Fullstack API is operational' });
+  res.json({ status: 'ok', message: 'FinTrack 3D Combined Fullstack API is operational with Supabase DB' });
 });
 
 // Serve static frontend build from frontend/dist
@@ -44,10 +44,7 @@ app.get('/{*splat}', (req, res) => {
 // Start Combined Server & Connect to DB
 const startServer = async () => {
   try {
-    const mongoUri = process.env.MONGODB_URI || 'mongodb://localhost:27017/finance_manager';
-    await mongoose.connect(mongoUri);
-    console.log('MongoDB Connected');
-    
+    console.log('⚡ Initializing Supabase Connection...');
     app.listen(PORT, () => {
       console.log(`🚀 Combined Fullstack Server running on http://localhost:${PORT}`);
     });
