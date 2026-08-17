@@ -217,8 +217,11 @@ router.post('/google', async (req, res) => {
       authProvider: admin.auth_provider
     });
   } catch (error) {
-    console.error('Google auth error:', error);
-    res.status(500).json({ message: 'Google authentication failed', error: error.message });
+    console.error('Google auth error:', error.message);
+    res.status(500).json({ 
+      message: error.message || 'Google authentication failed', 
+      error: error.message 
+    });
   }
 });
 

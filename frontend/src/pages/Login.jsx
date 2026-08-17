@@ -63,7 +63,8 @@ const Login = () => {
         navigate('/');
       }, 800);
     } catch (err) {
-      setError(err.response?.data?.message || 'Google authentication failed. Please try username/password.');
+      const msg = err.response?.data?.message || err.response?.data?.error || err.message || 'Google authentication failed.';
+      setError(`Google Sign-In failed: ${msg}`);
     } finally {
       setGoogleLoading(false);
     }
@@ -88,7 +89,7 @@ const Login = () => {
               type: 'standard',
               theme: 'filled_black',
               size: 'large',
-              width: '100%',
+              width: 400,
               text: 'continue_with',
             }
           );
