@@ -9,6 +9,9 @@
     "seed": "npm run seed --prefix backend",
     "dev": "node backend/server.js"
   },
+  "engines": {
+    "node": "24.x"
+  },
   "keywords": ["finance", "3d", "google-oauth", "express", "vite", "react"],
   "author": "",
   "license": "ISC"
