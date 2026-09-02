@@ -63,7 +63,8 @@ const AddCustomer = () => {
         navigate('/customers');
       }, 3000);
     } catch (err) {
-      setError(err.response?.data?.message || 'Error adding customer');
+      console.error('Error adding customer:', err.response?.data);
+      setError(err.response?.data?.error || err.response?.data?.message || 'Error adding customer');
       setLoading(false);
     }
   };

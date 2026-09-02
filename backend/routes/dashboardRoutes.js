@@ -7,8 +7,7 @@ router.get('/stats', auth, async (req, res) => {
   try {
     const { data: customers, error: custErr } = await supabase
       .from('customers')
-      .select('*')
-      .eq('admin_id', req.adminId);
+      .select('*');
 
     if (custErr) throw custErr;
 
@@ -42,7 +41,6 @@ router.get('/stats', auth, async (req, res) => {
     const { data: todayTransactions } = await supabase
       .from('transactions')
       .select('amount')
-      .eq('admin_id', req.adminId)
       .gte('created_at', startOfDay.toISOString())
       .lte('created_at', endOfDay.toISOString());
 
@@ -61,7 +59,6 @@ router.get('/stats', auth, async (req, res) => {
       const { data: dayTx } = await supabase
         .from('transactions')
         .select('amount')
-        .eq('admin_id', req.adminId)
         .gte('created_at', start.toISOString())
         .lte('created_at', end.toISOString());
 
