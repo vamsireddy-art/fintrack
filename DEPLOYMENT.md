@@ -28,7 +28,7 @@ Ensure your root `package.json` has the correct scripts for Render deployment:
 4. Configure the Web Service settings:
    - **Name:** `fintrack-3d` (or whatever you prefer)
    - **Environment:** `Node`
-   - **Build Command:** `npm run build`
+   - **Build Command:** `npm install && npm run build`
    - **Start Command:** `npm start`
 5. Add the following **Environment Variables**:
    
