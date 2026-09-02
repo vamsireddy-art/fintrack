@@ -1,10 +1,10 @@
 {
   "name": "fintrack-backend",
   "version": "1.0.0",
-  "description": "FinTrack 3D Finance Manager — Backend API (Vercel Serverless)",
+  "description": "FinTrack 3D Finance Manager — Backend API",
   "main": "server.js",
   "engines": {
-    "node": "18.x"
+    "node": "24.x"
   },
   "scripts": {
     "start": "node server.js",
