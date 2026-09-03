@@ -41,6 +41,7 @@ router.get('/', auth, async (req, res) => {
     const { data: customers, error } = await supabase
       .from('customers')
       .select('*')
+      .eq('admin_id', req.adminId)
       .order('created_at', { ascending: false });
 
     if (error) throw error;
@@ -57,6 +58,7 @@ router.get('/:id', auth, async (req, res) => {
       .from('customers')
       .select('*')
       .eq('id', req.params.id)
+      .eq('admin_id', req.adminId)
       .single();
 
     if (error || !customer) {
@@ -75,7 +77,8 @@ router.delete('/:id', auth, async (req, res) => {
     const { error } = await supabase
       .from('customers')
       .delete()
-      .eq('id', req.params.id);
+      .eq('id', req.params.id)
+      .eq('admin_id', req.adminId);
 
     if (error) throw error;
     res.json({ message: 'Customer deleted successfully' });
@@ -113,7 +116,8 @@ router.post('/', auth, async (req, res) => {
           end_date: endDate,
           notes,
           payment_tracker: paymentTracker,
-          status: 'active'
+          status: 'active',
+          admin_id: req.adminId
         }
       ])
       .select()
@@ -139,6 +143,7 @@ router.post('/:id/update-day', auth, async (req, res) => {
       .from('customers')
       .select('*')
       .eq('id', req.params.id)
+      .eq('admin_id', req.adminId)
       .single();
 
     if (fetchErr || !customer) {
@@ -171,7 +176,8 @@ router.post('/:id/update-day', auth, async (req, res) => {
           amount: dailyAmount,
           payment_mode: paymentMode || 'Cash',
           notes: notes || `Payment for Day ${dayIndex}`,
-          day_index: dayIndex
+          day_index: dayIndex,
+          admin_id: req.adminId
         }
       ]);
     } else if (oldStatus === 'paid') {
@@ -216,6 +222,7 @@ router.post('/:id/settle', auth, async (req, res) => {
       .from('customers')
       .update({ status: 'completed', updated_at: new Date().toISOString() })
       .eq('id', req.params.id)
+      .eq('admin_id', req.adminId)
       .select()
       .single();
 
@@ -237,6 +244,7 @@ router.post('/:id/circle', auth, async (req, res) => {
       .from('customers')
       .select('*')
       .eq('id', req.params.id)
+      .eq('admin_id', req.adminId)
       .single();
 
     if (fetchErr || !customer) {
@@ -290,6 +298,7 @@ router.get('/:id/transactions', auth, async (req, res) => {
       .from('transactions')
       .select('*')
       .eq('customer_id', req.params.id)
+      .eq('admin_id', req.adminId)
       .order('created_at', { ascending: false });
 
     if (error) throw error;
