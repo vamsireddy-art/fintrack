@@ -1,21 +1,24 @@
 import { useState } from 'react';
 import Sidebar from './Sidebar';
-import { Menu, Wallet } from 'lucide-react';
+import { Menu, Sparkles } from 'lucide-react';
 
 const Layout = ({ children }) => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   return (
-    <div className="flex h-screen bg-slate-950 text-slate-100 overflow-hidden relative selection:bg-emerald-500 selection:text-white">
-      {/* Background 3D grid and gradient lighting */}
-      <div className="absolute inset-0 grid-pattern pointer-events-none opacity-40" />
-      <div className="absolute top-0 right-1/4 w-[500px] h-[500px] bg-emerald-500/5 rounded-full blur-3xl pointer-events-none" />
-      <div className="absolute bottom-0 left-1/4 w-[500px] h-[500px] bg-blue-500/5 rounded-full blur-3xl pointer-events-none" />
+    <div className="flex h-screen bg-[#030014] text-slate-200 overflow-hidden relative selection:bg-purple-500/30 selection:text-white">
+      {/* Aurora Ambient Backgrounds */}
+      <div className="aurora-bg">
+        <div className="aurora-orb orb-1" />
+        <div className="aurora-orb orb-2" />
+        <div className="aurora-orb orb-3" />
+        <div className="absolute inset-0 glass-grid opacity-30" />
+      </div>
 
       {/* Mobile overlay */}
       {sidebarOpen && (
         <div 
-          className="fixed inset-0 z-30 bg-slate-950/80 backdrop-blur-md lg:hidden"
+          className="fixed inset-0 z-30 bg-black/60 backdrop-blur-md lg:hidden"
           onClick={() => setSidebarOpen(false)}
         />
       )}
@@ -31,7 +34,7 @@ const Layout = ({ children }) => {
       {/* Main Content Area */}
       <div className="flex-1 flex flex-col min-w-0 overflow-hidden relative z-10">
         {/* Mobile Header */}
-        <header className="bg-slate-900/80 backdrop-blur-md border-b border-white/10 sticky top-0 z-20 lg:hidden">
+        <header className="bg-black/40 backdrop-blur-xl border-b border-white/10 sticky top-0 z-20 lg:hidden">
           <div className="flex items-center px-4 py-4">
             <button
               onClick={() => setSidebarOpen(true)}
@@ -40,8 +43,8 @@ const Layout = ({ children }) => {
               <Menu size={24} />
             </button>
             <div className="ml-4 flex items-center gap-2">
-              <Wallet className="w-6 h-6 text-emerald-400" />
-              <span className="font-black text-xl text-white tracking-tight">FinTrack 3D</span>
+              <Sparkles className="w-5 h-5 text-purple-400" />
+              <span className="font-bold text-lg text-white tracking-tight">FinTrack</span>
             </div>
           </div>
         </header>

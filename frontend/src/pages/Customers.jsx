@@ -53,24 +53,24 @@ const Customers = () => {
   return (
     <div className="space-y-6">
       {/* Header Banner */}
-      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 bg-slate-900/60 backdrop-blur-xl p-6 rounded-3xl border border-white/10 shadow-2xl">
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 aurora-card p-6 md:p-8 rounded-3xl">
         <div>
-          <div className="flex items-center gap-2 text-xs font-bold text-emerald-400 uppercase tracking-widest mb-1">
+          <div className="flex items-center gap-2 text-xs font-bold text-purple-400 uppercase tracking-widest mb-2">
             <Sparkles className="w-3.5 h-3.5" /> Customer Accounts
           </div>
-          <h1 className="text-3xl font-black text-white tracking-tight">Active Customer Portfolios</h1>
+          <h1 className="text-3xl font-black text-white tracking-tight">Active Portfolios</h1>
           <p className="text-sm text-slate-400 mt-1">Manage daily collections & 100-day loan accounts.</p>
         </div>
         <Link 
           to="/customers/add" 
-          className="btn-primary-3d px-6 py-3 rounded-2xl font-bold text-sm transition-all duration-300 shadow-xl shadow-emerald-500/20"
+          className="btn-premium px-6 py-3.5 rounded-2xl font-bold text-sm"
         >
           Add New Customer
         </Link>
       </div>
 
       {/* Search and Filter */}
-      <div className="flex flex-col sm:flex-row gap-4 tilt-card-3d p-4 rounded-3xl border border-white/10">
+      <div className="flex flex-col sm:flex-row gap-4 aurora-card p-4 rounded-3xl">
         <div className="relative flex-1">
           <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400" />
           <input 
@@ -86,7 +86,7 @@ const Customers = () => {
           <select 
             value={statusFilter}
             onChange={(e) => setStatusFilter(e.target.value)}
-            className="glass-input py-3 pl-4 pr-10 rounded-2xl text-sm font-bold bg-slate-900 cursor-pointer"
+            className="glass-input py-3 pl-4 pr-10 rounded-2xl text-sm font-bold bg-[#030014] cursor-pointer"
           >
             <option value="all">All Accounts</option>
             <option value="active">Active</option>
@@ -99,10 +99,10 @@ const Customers = () => {
       {/* Customers List */}
       {loading ? (
         <div className="flex justify-center items-center h-48">
-          <div className="w-10 h-10 rounded-full border-4 border-emerald-500/20 border-t-emerald-500 animate-spin" />
+          <div className="loader-ring" />
         </div>
       ) : filteredCustomers.length === 0 ? (
-        <div className="text-center py-16 tilt-card-3d rounded-3xl border border-white/10">
+        <div className="text-center py-16 aurora-card rounded-3xl">
           <User className="w-12 h-12 text-slate-600 mx-auto mb-3" />
           <h3 className="text-lg font-bold text-white">No customer accounts found</h3>
           <p className="text-xs text-slate-400 mt-1">Try adjusting your search criteria or add a new customer.</p>
@@ -125,59 +125,59 @@ const Customers = () => {
               >
                 <Link 
                   to={`/customers/${customer._id}`}
-                  className="tilt-card-3d flex items-center justify-between p-5 rounded-3xl border border-white/10 group hover:border-emerald-500/40"
+                  className="aurora-card flex flex-col md:flex-row md:items-center justify-between p-5 rounded-3xl group hover:border-purple-500/40 gap-4"
                 >
                   <div className="flex items-center gap-4">
-                    <div className="w-14 h-14 rounded-2xl bg-gradient-to-tr from-emerald-600 to-teal-400 text-white flex items-center justify-center font-black text-xl shadow-lg shadow-emerald-500/20 group-hover:scale-110 transition-transform">
+                    <div className="w-14 h-14 rounded-2xl bg-white/5 border border-white/10 text-white flex items-center justify-center font-black text-xl group-hover:scale-110 group-hover:bg-purple-500/20 transition-all duration-300">
                       {customer.name.charAt(0).toUpperCase()}
                     </div>
                     <div>
-                      <h4 className="font-bold text-white text-lg group-hover:text-emerald-300 transition-colors">
+                      <h4 className="font-bold text-white text-lg group-hover:text-purple-300 transition-colors">
                         {customer.name}
                       </h4>
                       <p className="text-xs font-semibold text-slate-400 mt-0.5">{customer.phone} • Day {dayIndex}/100</p>
                     </div>
                   </div>
 
-                  <div className="hidden md:flex items-center gap-8 mr-4">
-                    <div className="flex flex-col items-end">
+                  <div className="flex items-center gap-4 md:gap-8 justify-between md:justify-end w-full md:w-auto">
+                    <div className="hidden md:flex flex-col items-end">
                       <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Account Target</p>
                       <p className="font-black text-white">{formatCurrency(customer.totalAmountToReceive)}</p>
                     </div>
 
-                    <div className="flex flex-col items-end">
+                    <div className="hidden md:flex flex-col items-end">
                       <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Collected</p>
-                      <p className="font-black text-emerald-400">{formatCurrency(customer.amountPaidTillNow)}</p>
+                      <p className="font-black text-cyan-400">{formatCurrency(customer.amountPaidTillNow)}</p>
                     </div>
                     
-                    <div className="flex flex-col items-end w-32">
+                    <div className="flex flex-col items-end w-24 md:w-32">
                       <div className="flex justify-between w-full mb-1">
-                        <span className="text-[10px] font-bold text-slate-400 uppercase">3D Progress</span>
-                        <span className="text-[10px] font-bold text-emerald-400">{Math.round(progressPercentage)}%</span>
+                        <span className="text-[10px] font-bold text-slate-400 uppercase">Progress</span>
+                        <span className="text-[10px] font-bold text-cyan-400">{Math.round(progressPercentage)}%</span>
                       </div>
-                      <div className="w-full bg-slate-800 rounded-full h-2 overflow-hidden border border-white/10">
+                      <div className="w-full bg-white/5 rounded-full h-1.5 overflow-hidden border border-white/10">
                         <div 
-                          className="bg-gradient-to-r from-emerald-500 to-teal-300 h-2 rounded-full transition-all duration-500" 
+                          className="bg-gradient-to-r from-purple-500 to-cyan-400 h-full rounded-full transition-all duration-500" 
                           style={{ width: `${progressPercentage}%` }}
                         />
                       </div>
                     </div>
-                  </div>
 
-                  <div className="flex items-center gap-3">
-                    {isPaidToday && (
-                      <span className="px-3 py-1.5 rounded-xl text-xs font-extrabold bg-amber-500/10 border border-amber-500/30 text-amber-300">
-                        Paid Today
+                    <div className="flex items-center gap-2">
+                      {isPaidToday && (
+                        <span className="px-3 py-1.5 rounded-xl text-[10px] font-extrabold bg-amber-500/10 border border-amber-500/30 text-amber-400 uppercase tracking-wider hidden sm:inline-block">
+                          Paid
+                        </span>
+                      )}
+                      <span className={`px-3 py-1.5 rounded-xl text-[10px] font-bold border uppercase tracking-wider ${
+                        customer.status === 'completed' ? 'bg-cyan-500/10 border-cyan-500/30 text-cyan-300' : 
+                        customer.status === 'overdue' ? 'bg-pink-500/10 border-pink-500/30 text-pink-300' : 
+                        'bg-purple-500/10 border-purple-500/30 text-purple-300'
+                      }`}>
+                        {customer.status}
                       </span>
-                    )}
-                    <span className={`px-3 py-1.5 rounded-xl text-xs font-bold border ${
-                      customer.status === 'completed' ? 'bg-emerald-500/10 border-emerald-500/30 text-emerald-300' : 
-                      customer.status === 'overdue' ? 'bg-rose-500/10 border-rose-500/30 text-rose-300' : 
-                      'bg-blue-500/10 border-blue-500/30 text-blue-300'
-                    }`}>
-                      {customer.status.toUpperCase()}
-                    </span>
-                    <ChevronRight className="w-5 h-5 text-slate-400 group-hover:text-emerald-400 transition-colors group-hover:translate-x-1" />
+                      <ChevronRight className="w-5 h-5 text-slate-400 group-hover:text-purple-400 transition-colors group-hover:translate-x-1 hidden sm:block" />
+                    </div>
                   </div>
                 </Link>
               </motion.div>

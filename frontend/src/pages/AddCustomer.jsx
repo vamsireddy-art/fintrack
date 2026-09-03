@@ -83,20 +83,20 @@ const AddCustomer = () => {
       <div className="flex items-center gap-4">
         <button 
           onClick={() => navigate(-1)}
-          className="p-2.5 hover:bg-slate-800 rounded-full transition-colors text-slate-300 border border-white/10"
+          className="p-2.5 bg-white/5 hover:bg-white/10 rounded-full transition-colors text-slate-300 border border-white/10"
         >
           <ArrowLeft className="w-5 h-5" />
         </button>
         <div>
-          <div className="flex items-center gap-2 text-xs font-bold text-emerald-400 uppercase tracking-widest">
-            <Sparkles className="w-3.5 h-3.5" /> 3D Loan Disbursement
+          <div className="flex items-center gap-2 text-xs font-bold text-cyan-400 uppercase tracking-widest">
+            <Sparkles className="w-3.5 h-3.5" /> Aurora Disbursement
           </div>
           <h1 className="text-2xl font-black text-white tracking-tight">Disburse Money to New Customer</h1>
         </div>
       </div>
 
-      <div className="tilt-card-3d p-6 sm:p-10 rounded-3xl border border-white/10 relative overflow-hidden">
-        <div className="absolute top-0 right-0 w-64 h-64 bg-emerald-500/10 rounded-full blur-3xl" />
+      <div className="aurora-card p-6 sm:p-10 rounded-3xl relative overflow-hidden">
+        <div className="absolute top-0 right-0 w-64 h-64 bg-purple-500/10 rounded-full blur-3xl pointer-events-none" />
 
         <form onSubmit={handleSubmit} className="space-y-8 relative z-10">
           {error && (
@@ -108,7 +108,7 @@ const AddCustomer = () => {
           {/* Section 1: Borrower Info */}
           <div>
             <h3 className="text-lg font-bold text-white border-b border-white/10 pb-3 mb-6 flex items-center gap-2">
-              <User className="w-5 h-5 text-emerald-400" /> Borrower Details
+              <User className="w-5 h-5 text-purple-400" /> Borrower Details
             </h3>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
@@ -150,7 +150,7 @@ const AddCustomer = () => {
           {/* Section 2: 3D Money Disbursement Amounts */}
           <div>
             <h3 className="text-lg font-bold text-white border-b border-white/10 pb-3 mb-6 flex items-center gap-2">
-              <Wallet className="w-5 h-5 text-emerald-400" /> 3D Loan & Money Flow Terms
+              <Wallet className="w-5 h-5 text-cyan-400" /> Loan Terms
             </h3>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -160,17 +160,17 @@ const AddCustomer = () => {
                 </label>
                 <div className="flex gap-2">
                   <div className="relative flex-1">
-                    <DollarSign className="w-4 h-4 text-emerald-400 absolute left-4 top-1/2 -translate-y-1/2" />
+                    <DollarSign className="w-4 h-4 text-purple-400 absolute left-4 top-1/2 -translate-y-1/2" />
                     <input 
                       type="number" required name="amountGiven" value={formData.amountGiven} onChange={handleChange}
-                      className="glass-input w-full pl-11 pr-4 py-3 rounded-2xl text-sm font-bold text-emerald-300"
+                      className="glass-input w-full pl-11 pr-4 py-3 rounded-2xl text-sm font-bold text-purple-300"
                       placeholder="80000"
                     />
                   </div>
                   <button 
                     type="button" 
                     onClick={handleCalculate} 
-                    className="px-4 bg-emerald-500/20 hover:bg-emerald-500/30 text-emerald-300 rounded-2xl transition-colors border border-emerald-500/30 font-bold text-xs flex items-center gap-1.5"
+                    className="px-4 bg-purple-500/20 hover:bg-purple-500/30 text-purple-300 rounded-2xl transition-colors border border-purple-500/30 font-bold text-xs flex items-center gap-1.5"
                     title="Auto-calculate 25% profit"
                   >
                     <Calculator className="w-4 h-4" /> Auto +25%
@@ -183,10 +183,10 @@ const AddCustomer = () => {
                   Total Account Amount to Receive (₹)
                 </label>
                 <div className="relative">
-                  <DollarSign className="w-4 h-4 text-blue-400 absolute left-4 top-1/2 -translate-y-1/2" />
+                  <DollarSign className="w-4 h-4 text-cyan-400 absolute left-4 top-1/2 -translate-y-1/2" />
                   <input 
                     type="number" required name="totalAmountToReceive" value={formData.totalAmountToReceive} onChange={handleChange}
-                    className="glass-input w-full pl-11 pr-4 py-3 rounded-2xl text-sm font-black text-blue-400 bg-blue-500/10 border-blue-500/30"
+                    className="glass-input w-full pl-11 pr-4 py-3 rounded-2xl text-sm font-black text-cyan-400 bg-cyan-500/10 border-cyan-500/30"
                     placeholder="100000"
                   />
                 </div>
@@ -218,18 +218,18 @@ const AddCustomer = () => {
             <button
               type="button"
               onClick={() => navigate('/customers')}
-              className="px-6 py-3 border border-white/10 text-slate-300 font-bold rounded-2xl hover:bg-slate-800 transition-colors text-sm"
+              className="px-6 py-3 border border-white/10 text-slate-300 font-bold rounded-2xl hover:bg-white/5 transition-colors text-sm"
             >
               Cancel
             </button>
             <button
               type="submit"
               disabled={loading}
-              className="btn-primary-3d px-8 py-3 rounded-2xl font-bold text-sm transition-all duration-300 shadow-xl shadow-emerald-500/20 disabled:opacity-70 flex items-center gap-2"
+              className="btn-premium px-8 py-3 rounded-2xl font-bold text-sm disabled:opacity-70 flex items-center gap-2"
             >
               {loading ? <Loader2 className="w-5 h-5 animate-spin" /> : (
                 <>
-                  <Send className="w-4 h-4" /> Disburse & Save (Trigger 3D Money Flow)
+                  <Send className="w-4 h-4" /> Disburse & Save
                 </>
               )}
             </button>
