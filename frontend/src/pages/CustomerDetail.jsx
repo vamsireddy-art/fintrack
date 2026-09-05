@@ -135,44 +135,48 @@ const CustomerDetail = () => {
       />
 
       {/* Header */}
-      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 bg-slate-900/60 backdrop-blur-xl p-6 rounded-3xl border border-white/10 shadow-2xl">
-        <div className="flex items-center gap-4">
+      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 aurora-card p-6 rounded-3xl mb-8">
+        <div className="flex items-center gap-5">
           <button 
             onClick={() => navigate('/customers')}
-            className="p-2.5 hover:bg-slate-800 rounded-full transition-colors text-slate-300 border border-white/10"
+            className="p-3 hover:bg-white/5 rounded-2xl transition-all duration-300 text-slate-300 border border-white/5 hover:border-white/20 shadow-lg backdrop-blur-md"
           >
             <ArrowLeft className="w-5 h-5" />
           </button>
           <div>
-            <div className="flex items-center gap-2 text-xs font-bold text-emerald-400 uppercase tracking-widest">
-              <Sparkles className="w-3.5 h-3.5" /> 3D Collection Account
+            <div className="flex items-center gap-2 text-xs font-bold text-emerald-400 uppercase tracking-widest mb-1">
+              <Sparkles className="w-4 h-4" /> 3D Collection Account
             </div>
-            <h1 className="text-2xl font-black text-white tracking-tight">{customer.name}'s Account</h1>
+            <h1 className="text-3xl font-black text-white tracking-tight">
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-300 via-teal-200 to-cyan-300">
+                {customer.name}'s
+              </span> Account
+            </h1>
           </div>
         </div>
 
-        <div className="flex items-center gap-2">
+        <div className="flex flex-wrap items-center gap-3 mt-4 sm:mt-0">
           {customer.status !== 'completed' && (
             <>
               <button
                 onClick={() => setShowCircleModal(true)}
-                className="btn-primary-3d px-4 py-2.5 rounded-2xl text-xs font-bold flex items-center gap-2"
+                className="btn-premium px-5 py-2.5 rounded-2xl text-xs font-bold flex items-center gap-2"
               >
                 <RefreshCw className="w-4 h-4" /> Circle Account
               </button>
               <button
                 onClick={handleEarlySettlement}
-                className="px-4 py-2.5 bg-blue-500/10 hover:bg-blue-500/20 text-blue-300 rounded-2xl transition-colors text-xs font-bold border border-blue-500/20"
+                className="btn-ghost px-5 py-2.5 rounded-2xl text-xs font-bold flex items-center gap-2"
               >
-                <Activity className="w-4 h-4 inline mr-1" /> Close Early
+                <Activity className="w-4 h-4" /> Close Early
               </button>
             </>
           )}
           <button
             onClick={handleDeleteCustomer}
-            className="px-4 py-2.5 bg-rose-500/10 hover:bg-rose-500/20 text-rose-300 rounded-2xl transition-colors text-xs font-bold border border-rose-500/20"
+            className="px-5 py-2.5 bg-rose-500/10 hover:bg-rose-500/20 text-rose-300 rounded-2xl transition-all duration-300 text-xs font-bold border border-rose-500/20 hover:border-rose-500/40 hover:shadow-[0_0_15px_rgba(225,29,72,0.2)] flex items-center gap-2"
           >
-            <Trash2 className="w-4 h-4 inline mr-1" /> Delete
+            <Trash2 className="w-4 h-4" /> Delete
           </button>
         </div>
       </div>
@@ -181,59 +185,95 @@ const CustomerDetail = () => {
         {/* Left Column: Customer Profile & Financial Summary */}
         <div className="space-y-6">
           {/* Profile Card */}
-          <div className="tilt-card-3d p-6 rounded-3xl border border-white/10">
-            <div className="flex items-center gap-4 mb-6">
-              <div className="w-16 h-16 rounded-2xl bg-gradient-to-tr from-emerald-600 to-teal-400 text-white flex items-center justify-center font-black text-2xl shadow-xl shadow-emerald-500/20">
-                {customer.name.charAt(0).toUpperCase()}
+          <div className="aurora-card p-6 rounded-3xl">
+            <div className="flex items-center gap-5 mb-6">
+              <div className="relative">
+                <div className="absolute inset-0 bg-gradient-to-tr from-emerald-500 to-cyan-400 rounded-2xl blur-md opacity-50"></div>
+                <div className="relative w-16 h-16 rounded-2xl bg-gradient-to-tr from-emerald-600 to-teal-400 border border-white/20 text-white flex items-center justify-center font-black text-3xl shadow-xl">
+                  {customer.name.charAt(0).toUpperCase()}
+                </div>
               </div>
               <div>
-                <h2 className="text-xl font-black text-white">{customer.name}</h2>
-                <span className={`inline-block px-3 py-1 mt-1 rounded-full text-[10px] font-bold border ${
-                  customer.status === 'completed' ? 'bg-emerald-500/10 border-emerald-500/30 text-emerald-300' : 'bg-blue-500/10 border-blue-500/30 text-blue-300'
+                <h2 className="text-2xl font-black text-white">{customer.name}</h2>
+                <span className={`inline-flex items-center gap-1.5 px-3 py-1 mt-2 rounded-full text-[10px] font-bold border backdrop-blur-sm ${
+                  customer.status === 'completed' ? 'bg-emerald-500/10 border-emerald-500/30 text-emerald-300 shadow-[0_0_10px_rgba(16,185,129,0.2)]' : 'bg-blue-500/10 border-blue-500/30 text-blue-300 shadow-[0_0_10px_rgba(59,130,246,0.2)]'
                 }`}>
+                  <div className={`w-1.5 h-1.5 rounded-full ${customer.status === 'completed' ? 'bg-emerald-400' : 'bg-blue-400'} animate-pulse`}></div>
                   {customer.status.toUpperCase()}
                 </span>
               </div>
             </div>
 
-            <div className="space-y-3.5 text-xs font-medium text-slate-300">
+            <div className="space-y-4 text-xs font-medium text-slate-300 bg-black/20 p-4 rounded-2xl border border-white/5">
               <div className="flex items-center gap-3">
-                <Phone className="w-4 h-4 text-emerald-400" />
-                <span>{customer.phone}</span>
+                <div className="w-8 h-8 rounded-xl bg-white/5 flex items-center justify-center border border-white/5">
+                  <Phone className="w-4 h-4 text-emerald-400" />
+                </div>
+                <span className="text-sm">{customer.phone}</span>
               </div>
               <div className="flex items-center gap-3">
-                <MapPin className="w-4 h-4 text-emerald-400" />
-                <span>{customer.address || 'N/A'}</span>
+                <div className="w-8 h-8 rounded-xl bg-white/5 flex items-center justify-center border border-white/5">
+                  <MapPin className="w-4 h-4 text-emerald-400" />
+                </div>
+                <span className="text-sm">{customer.address || 'N/A'}</span>
               </div>
               <div className="flex items-center gap-3">
-                <Calendar className="w-4 h-4 text-emerald-400" />
-                <span>Started: {format(new Date(customer.startDate), 'MMM dd, yyyy')}</span>
+                <div className="w-8 h-8 rounded-xl bg-white/5 flex items-center justify-center border border-white/5">
+                  <Calendar className="w-4 h-4 text-emerald-400" />
+                </div>
+                <span className="text-sm">Started: {format(new Date(customer.startDate), 'MMM dd, yyyy')}</span>
               </div>
             </div>
           </div>
 
           {/* Financial Summary */}
-          <div className="tilt-card-3d card-glow-emerald p-6 rounded-3xl border border-emerald-500/30 relative overflow-hidden">
-            <h3 className="text-lg font-black text-white mb-6 flex items-center gap-2">
-              <Activity className="w-5 h-5 text-emerald-400" /> Financial Summary
+          <div className="aurora-card card-glow-emerald p-6 rounded-3xl relative overflow-hidden">
+            <div className="absolute top-0 right-0 w-32 h-32 bg-emerald-500/10 rounded-full blur-3xl"></div>
+            <h3 className="text-lg font-black text-white mb-6 flex items-center gap-2 relative z-10">
+              <div className="p-2 bg-emerald-500/20 rounded-lg border border-emerald-500/30">
+                <Activity className="w-5 h-5 text-emerald-400" />
+              </div>
+              Financial Summary
             </h3>
             
-            <div className="space-y-4 text-sm">
-              <div className="flex justify-between items-center pb-3 border-b border-white/10">
+            <div className="space-y-5 text-sm relative z-10">
+              <div className="flex justify-between items-center pb-4 border-b border-white/5">
                 <span className="text-slate-400 font-medium">Principal Given</span>
-                <span className="font-black text-white">{formatCurrency(customer.amountGiven)}</span>
+                <span className="font-black text-white text-base">{formatCurrency(customer.amountGiven)}</span>
               </div>
-              <div className="flex justify-between items-center pb-3 border-b border-white/10">
+              <div className="flex justify-between items-center pb-4 border-b border-white/5">
                 <span className="text-slate-400 font-medium">Account Target</span>
-                <span className="font-black text-blue-400">{formatCurrency(customer.totalAmountToReceive)}</span>
+                <span className="font-black text-blue-400 text-base">{formatCurrency(customer.totalAmountToReceive)}</span>
               </div>
-              <div className="flex justify-between items-center pb-3 border-b border-white/10">
+              <div className="flex justify-between items-center pb-4 border-b border-white/5">
                 <span className="text-slate-400 font-medium">Daily Installment</span>
-                <span className="font-black text-emerald-400">{formatCurrency(customer.dailyPaymentAmount)}</span>
+                <div className="px-3 py-1 bg-emerald-500/10 border border-emerald-500/20 rounded-lg">
+                  <span className="font-black text-emerald-400 text-base">{formatCurrency(customer.dailyPaymentAmount)}</span>
+                </div>
               </div>
-              <div className="flex justify-between items-center">
-                <span className="text-slate-400 font-medium">Collected Till Now</span>
-                <span className="font-black text-emerald-300 text-base">{formatCurrency(customer.amountPaidTillNow)}</span>
+              
+              <div className="pt-2">
+                <div className="flex justify-between items-end mb-2">
+                  <span className="text-slate-400 font-medium">Collected Till Now</span>
+                  <span className="font-black text-emerald-300 text-xl">{formatCurrency(customer.amountPaidTillNow)}</span>
+                </div>
+                
+                {/* Visual Progress Bar */}
+                <div className="h-3 w-full bg-slate-800/50 rounded-full overflow-hidden border border-white/5 shadow-inner">
+                  <motion.div 
+                    initial={{ width: 0 }}
+                    animate={{ width: `${progressPercentage}%` }}
+                    transition={{ duration: 1, ease: "easeOut" }}
+                    className="h-full bg-gradient-to-r from-emerald-500 to-teal-400 relative"
+                  >
+                    <div className="absolute inset-0 bg-[linear-gradient(45deg,transparent_25%,rgba(255,255,255,0.2)_50%,transparent_75%,transparent_100%)] bg-[length:20px_20px] animate-[shimmer_1s_linear_infinite]"></div>
+                  </motion.div>
+                </div>
+                <div className="flex justify-between mt-1.5">
+                  <span className="text-[10px] text-slate-500">0</span>
+                  <span className="text-[10px] text-emerald-400 font-bold">{Math.round(progressPercentage)}%</span>
+                  <span className="text-[10px] text-slate-500">{formatCurrency(customer.totalAmountToReceive)}</span>
+                </div>
               </div>
             </div>
           </div>
@@ -244,17 +284,21 @@ const CustomerDetail = () => {
           <motion.div 
             initial={{ x: 20, opacity: 0 }}
             animate={{ x: 0, opacity: 1 }}
-            className="tilt-card-3d p-6 sm:p-8 rounded-3xl border border-white/10"
+            className="aurora-card p-6 sm:p-8 rounded-3xl"
           >
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8">
               <div>
-                <h2 className="text-2xl font-black text-white tracking-tight">100-Day Collection Grid</h2>
-                <p className="text-xs text-slate-400 mt-1">Tap any day box to trigger 3D money collection status</p>
+                <h2 className="text-2xl font-black text-white tracking-tight flex items-center gap-2">
+                  100-Day Collection Grid
+                </h2>
+                <p className="text-sm text-slate-400 mt-1">Tap any day box to trigger 3D money collection status</p>
               </div>
-              <div className="flex items-center gap-3 bg-slate-900/80 p-3 rounded-2xl border border-white/10">
+              <div className="flex items-center gap-3 bg-black/30 p-3.5 rounded-2xl border border-white/5 backdrop-blur-md shadow-inner">
                 <div className="text-right">
-                  <p className="text-[10px] uppercase tracking-wider text-slate-400 font-bold">Paid Progress</p>
-                  <p className="text-xl font-black text-emerald-400">{Math.round(progressPercentage)}%</p>
+                  <p className="text-[10px] uppercase tracking-wider text-slate-400 font-bold mb-0.5">Paid Progress</p>
+                  <p className="text-2xl font-black text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-teal-300">
+                    {Math.round(progressPercentage)}%
+                  </p>
                 </div>
               </div>
             </div>

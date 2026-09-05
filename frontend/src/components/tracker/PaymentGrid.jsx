@@ -10,45 +10,52 @@ const PaymentGrid = ({ tracker, onMarkPayment, disabled, startDate }) => {
   return (
     <div className="w-full space-y-6">
       {/* 3D Tracker Statistics Banner */}
-      <div className="grid grid-cols-3 gap-3 bg-slate-900/80 p-5 rounded-3xl border border-white/10 shadow-xl">
-        <div className="text-center">
-          <p className="text-[10px] uppercase font-black text-emerald-400 tracking-widest flex items-center justify-center gap-1">
-            <Sparkles className="w-3 h-3" /> Paid Days
+      <div className="grid grid-cols-3 gap-1 p-2 bg-black/20 rounded-[2rem] border border-white/5 shadow-inner backdrop-blur-xl">
+        <div className="text-center p-4 rounded-3xl bg-gradient-to-b from-emerald-500/10 to-transparent border border-emerald-500/10 relative overflow-hidden group">
+          <div className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-emerald-500/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+          <p className="text-[10px] uppercase font-black text-emerald-400 tracking-widest flex items-center justify-center gap-1.5 mb-2">
+            <Sparkles className="w-3.5 h-3.5" /> Paid Days
           </p>
-          <p className="text-2xl sm:text-3xl font-black text-white mt-1">
-            {paidCount} <span className="text-xs text-slate-500 font-normal">/ 100</span>
-          </p>
-        </div>
-        <div className="text-center border-x border-white/10">
-          <p className="text-[10px] uppercase font-black text-rose-400 tracking-widest">Missed Days</p>
-          <p className="text-2xl sm:text-3xl font-black text-white mt-1">
-            {missedCount} <span className="text-xs text-slate-500 font-normal">/ 100</span>
+          <p className="text-3xl sm:text-4xl font-black text-transparent bg-clip-text bg-gradient-to-b from-white to-emerald-200">
+            {paidCount} <span className="text-sm text-emerald-500/50 font-bold">/ 100</span>
           </p>
         </div>
-        <div className="text-center">
-          <p className="text-[10px] uppercase font-black text-slate-400 tracking-widest">Pending Days</p>
-          <p className="text-2xl sm:text-3xl font-black text-white mt-1">
-            {pendingCount} <span className="text-xs text-slate-500 font-normal">/ 100</span>
+        
+        <div className="text-center p-4 rounded-3xl bg-gradient-to-b from-rose-500/10 to-transparent border border-rose-500/10 relative overflow-hidden group">
+          <div className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-rose-500/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+          <p className="text-[10px] uppercase font-black text-rose-400 tracking-widest mb-2 flex items-center justify-center gap-1.5">
+            <X className="w-3.5 h-3.5" /> Missed Days
+          </p>
+          <p className="text-3xl sm:text-4xl font-black text-transparent bg-clip-text bg-gradient-to-b from-white to-rose-200">
+            {missedCount} <span className="text-sm text-rose-500/50 font-bold">/ 100</span>
+          </p>
+        </div>
+
+        <div className="text-center p-4 rounded-3xl bg-gradient-to-b from-slate-500/10 to-transparent border border-white/5 relative overflow-hidden group">
+          <div className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-slate-500/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+          <p className="text-[10px] uppercase font-black text-slate-400 tracking-widest mb-2">Pending Days</p>
+          <p className="text-3xl sm:text-4xl font-black text-transparent bg-clip-text bg-gradient-to-b from-white to-slate-400">
+            {pendingCount} <span className="text-sm text-slate-500/50 font-bold">/ 100</span>
           </p>
         </div>
       </div>
 
       {/* Legend */}
-      <div className="flex items-center gap-6 text-xs text-slate-300 font-semibold px-2">
-        <div className="flex items-center gap-2">
-          <div className="w-5 h-5 rounded-md bg-emerald-500 border border-emerald-400 flex items-center justify-center shadow-lg shadow-emerald-500/30">
-            <Check className="w-3 h-3 text-white" />
+      <div className="flex flex-wrap items-center justify-center sm:justify-start gap-4 text-xs font-bold px-2">
+        <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-300">
+          <div className="w-4 h-4 rounded-full bg-gradient-to-tr from-emerald-500 to-teal-400 flex items-center justify-center shadow-[0_0_10px_rgba(16,185,129,0.4)]">
+            <Check className="w-2.5 h-2.5 text-white" />
           </div>
           <span>Paid (₹ Cash In)</span>
         </div>
-        <div className="flex items-center gap-2">
-          <div className="w-5 h-5 rounded-md bg-rose-500 border border-rose-400 flex items-center justify-center shadow-lg shadow-rose-500/30">
-            <X className="w-3 h-3 text-white" />
+        <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-rose-500/10 border border-rose-500/20 text-rose-300">
+          <div className="w-4 h-4 rounded-full bg-gradient-to-tr from-rose-500 to-pink-500 flex items-center justify-center shadow-[0_0_10px_rgba(225,29,72,0.4)]">
+            <X className="w-2.5 h-2.5 text-white" />
           </div>
           <span>Missed</span>
         </div>
-        <div className="flex items-center gap-2">
-          <div className="w-5 h-5 rounded-md bg-slate-800 border border-white/20" />
+        <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-slate-800/50 border border-white/5 text-slate-400">
+          <div className="w-4 h-4 rounded-full bg-slate-800 border border-white/10" />
           <span>Pending</span>
         </div>
       </div>
@@ -67,8 +74,8 @@ const PaymentGrid = ({ tracker, onMarkPayment, disabled, startDate }) => {
           return (
             <motion.button
               key={day.dayIndex}
-              whileHover={{ scale: disabled ? 1 : 1.1, rotateX: -10, translateZ: 10 }}
-              whileTap={{ scale: disabled ? 1 : 0.92 }}
+              whileHover={{ scale: disabled ? 1 : 1.15, rotateX: -10, rotateY: 10, zIndex: 10 }}
+              whileTap={{ scale: disabled ? 1 : 0.9 }}
               onClick={() => {
                 if (disabled) return;
                 let nextStatus = 'pending';
@@ -79,33 +86,53 @@ const PaymentGrid = ({ tracker, onMarkPayment, disabled, startDate }) => {
                 onMarkPayment(day.dayIndex, nextStatus);
               }}
               className={`
-                relative aspect-square rounded-2xl flex flex-col items-center justify-center p-1.5 transition-all duration-300 border transform-gpu
+                relative aspect-square rounded-2xl flex flex-col items-center justify-center p-1 transition-all duration-300 transform-gpu overflow-hidden
                 ${isPaid 
-                  ? 'bg-gradient-to-tr from-emerald-600 to-teal-500 border-emerald-300 text-white shadow-lg shadow-emerald-500/30 font-black' 
+                  ? 'bg-gradient-to-br from-emerald-400 via-emerald-600 to-teal-700 text-white shadow-[0_0_20px_rgba(16,185,129,0.4)] border border-emerald-300/50' 
                   : isMissed
-                    ? 'bg-gradient-to-tr from-rose-600 to-red-500 border-rose-300 text-white shadow-lg shadow-rose-500/30 font-black'
-                    : 'bg-slate-900/80 border-white/10 text-slate-200 hover:border-emerald-500/50 hover:bg-slate-800 shadow-md'
+                    ? 'bg-gradient-to-br from-rose-400 via-rose-600 to-pink-700 text-white shadow-[0_0_20px_rgba(225,29,72,0.4)] border border-rose-300/50'
+                    : 'bg-slate-900/50 backdrop-blur-sm border border-white/5 text-slate-300 hover:border-emerald-500/50 hover:bg-slate-800 shadow-inner group'
                 }
                 ${disabled ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}
               `}
             >
-              <span className="text-sm sm:text-base font-black">
+              {/* Inner subtle glow for paid/missed */}
+              {(isPaid || isMissed) && (
+                <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent rounded-2xl pointer-events-none"></div>
+              )}
+              
+              {/* Pending hover glow effect */}
+              {status === 'pending' && !disabled && (
+                <div className="absolute inset-0 opacity-0 group-hover:opacity-100 bg-[radial-gradient(circle_at_center,rgba(16,185,129,0.15)_0%,transparent_70%)] transition-opacity duration-300 pointer-events-none"></div>
+              )}
+
+              <span className={`text-base sm:text-lg font-black relative z-10 ${isPaid || isMissed ? 'drop-shadow-md' : ''}`}>
                 {day.dayIndex}
               </span>
               
-              <span className={`text-[8.5px] font-bold mt-0.5 tracking-tighter ${isPaid || isMissed ? 'text-white/80' : 'text-slate-500'}`}>
+              <span className={`text-[8px] sm:text-[9px] font-bold mt-0.5 tracking-tighter relative z-10 ${isPaid || isMissed ? 'text-white/90 drop-shadow-sm' : 'text-slate-500 group-hover:text-emerald-500/70 transition-colors'}`}>
                 {dayDate}
               </span>
 
               {isPaid && (
-                <div className="absolute top-1 right-1 w-4 h-4 bg-white rounded-full flex items-center justify-center shadow-md">
-                  <Check className="w-3 h-3 text-emerald-600 stroke-[3.5px]" />
-                </div>
+                <motion.div 
+                  initial={{ scale: 0 }}
+                  animate={{ scale: 1 }}
+                  type="spring"
+                  className="absolute -top-1.5 -right-1.5 w-5 h-5 bg-gradient-to-br from-white to-slate-200 rounded-full flex items-center justify-center shadow-lg z-20 border border-emerald-200"
+                >
+                  <Check className="w-3.5 h-3.5 text-emerald-600 stroke-[3.5px]" />
+                </motion.div>
               )}
               {isMissed && (
-                <div className="absolute top-1 right-1 w-4 h-4 bg-white rounded-full flex items-center justify-center shadow-md">
-                  <X className="w-3 h-3 text-rose-600 stroke-[3.5px]" />
-                </div>
+                <motion.div 
+                  initial={{ scale: 0 }}
+                  animate={{ scale: 1 }}
+                  type="spring"
+                  className="absolute -top-1.5 -right-1.5 w-5 h-5 bg-gradient-to-br from-white to-slate-200 rounded-full flex items-center justify-center shadow-lg z-20 border border-rose-200"
+                >
+                  <X className="w-3.5 h-3.5 text-rose-600 stroke-[3.5px]" />
+                </motion.div>
               )}
             </motion.button>
           );
